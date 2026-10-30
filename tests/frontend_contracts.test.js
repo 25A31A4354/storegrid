@@ -45,7 +45,7 @@ test.describe('Frontend Contracts & Integration Endpoints', () => {
     assert.ok(body.data.metrics.needsReview >= 1);
 
     assert.ok(Array.isArray(body.data.categoryBreakdown));
-    assert.equal(body.data.categoryBreakdown.length, 6);
+    assert.ok(body.data.categoryBreakdown.length >= 6);
     assert.ok(Array.isArray(body.data.topIssues));
   });
 

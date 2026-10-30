@@ -116,7 +116,7 @@ describe('Settings & Tools Functional Integration Tests', () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         storeCode: 'TEST-STR-01',
-        text: 'Aisle 3 was completely out of stock for cooking oil packets today.',
+        text: 'Aisle 3 items unavailable today.',
         rating: 3,
         sourceType: 'CUSTOMER_REVIEW',
         provenance: 'TEST',

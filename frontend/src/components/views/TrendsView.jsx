@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   TrendingUp,
   AlertTriangle,
@@ -8,7 +8,6 @@ import {
   Activity,
   RefreshCw,
   Layers,
-  Filter,
   Sparkles,
   ShieldAlert,
   Zap,
@@ -26,7 +25,7 @@ export default function TrendsView({ selectedStore = 'ALL', selectedBatch = 'ALL
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTrends = async () => {
+  const fetchTrends = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -51,11 +50,11 @@ export default function TrendsView({ selectedStore = 'ALL', selectedBatch = 'ALL
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [selectedStore, selectedBatch]);
 
   useEffect(() => {
     fetchTrends();
-  }, [selectedStore, selectedBatch]);
+  }, [fetchTrends]);
 
 
   const timeline = trendsData?.timeline || [];

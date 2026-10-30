@@ -33,7 +33,6 @@ export default function SettingsView({
   const [autoFlagCritical, setAutoFlagCritical] = useState(true);
   const [multilingualNormalization, setMultilingualNormalization] = useState(true);
   const [isSavingSettings, setIsSavingSettings] = useState(false);
-  const [settingsLoaded, setSettingsLoaded] = useState(false);
 
   // 2. Connectivity Health Check State
   const [connectivity, setConnectivity] = useState({
@@ -72,10 +71,8 @@ export default function SettingsView({
       if (stats) {
         setDatasetStats(stats);
       }
-      setSettingsLoaded(true);
     } catch (err) {
       console.warn('[SettingsView] Failed loading settings:', err.message);
-      setSettingsLoaded(true);
     }
   }
 

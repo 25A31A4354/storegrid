@@ -86,6 +86,21 @@ export default function App() {
     }, 4000);
   }, []);
 
+  // Fetch registered stores on mount
+  useEffect(() => {
+    let mounted = true;
+    getStores()
+      .then((data) => {
+        if (mounted && data && Array.isArray(data) && data.length > 0) {
+          setStores(data);
+        }
+      })
+      .catch((err) => console.warn('Failed to pre-fetch stores:', err));
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   // Fetch dashboard data reactively with cleanup
   useEffect(() => {
     let isCurrent = true;
@@ -93,8 +108,7 @@ export default function App() {
     async function loadData() {
       setIsLoading(true);
       try {
-        const [storeData, batchData, overview, list, reviews] = await Promise.all([
-          stores.length === 0 ? getStores() : Promise.resolve(stores),
+        const [batchData, overview, list, reviews] = await Promise.all([
           listDatasetBatches().catch(() => []),
           getDashboardOverview({
             storeId: selectedStore,
@@ -118,9 +132,6 @@ export default function App() {
         ]);
 
         if (isCurrent) {
-          if (storeData && Array.isArray(storeData) && storeData.length > 0) {
-            setStores(storeData);
-          }
           if (batchData && Array.isArray(batchData)) {
             setBatches(batchData);
           }

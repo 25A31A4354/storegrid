@@ -19,6 +19,22 @@ async function startServer() {
       console.log(`=======================================================`);
     });
 
+    server.on('error', (err) => {
+      if (err.code === 'EADDRINUSE') {
+        const fallbackPort = config.port + 1;
+        console.warn(`[StoreGrid] Port ${config.port} is already in use (e.g. macOS AirPlay). Falling back to port ${fallbackPort}...`);
+        server = app.listen(fallbackPort, () => {
+          console.log(`=======================================================`);
+          console.log(` StoreGrid Backend is listening on fallback port ${fallbackPort}`);
+          console.log(` Health endpoint: http://localhost:${fallbackPort}/api/health`);
+          console.log(` Database Mode:   ${db.getDbStatus().mode.toUpperCase()}`);
+          console.log(`=======================================================`);
+        });
+      } else {
+        console.error('[StoreGrid] Server error:', err);
+      }
+    });
+
     // Graceful shutdown
     const handleShutdown = async (signal) => {
       console.log(`\n[StoreGrid] Received ${signal}. Gracefully shutting down...`);

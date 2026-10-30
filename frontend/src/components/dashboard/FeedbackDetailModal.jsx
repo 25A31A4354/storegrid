@@ -78,11 +78,11 @@ export default function FeedbackDetailModal({
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               <span className="text-xs font-semibold text-emerald-900">
-                Confidence Score: {confidencePercent}% (High Certainty)
+                Rule Match Score: {confidencePercent}% (Rule-based Heuristic)
               </span>
             </div>
             <span className="text-[11px] text-emerald-700 font-medium">
-              Verified by StoreGrid NLP
+              Verified by StoreGrid NLP (R5 Taxonomy)
             </span>
           </div>
         )}
@@ -146,7 +146,7 @@ export default function FeedbackDetailModal({
               Assigned Department
             </span>
             <span className="text-xs font-semibold text-[#172033] mt-1 block truncate">
-              {feedback.department || 'Operations'}
+              {feedback.department || feedback.metadata?.nlp?.ownerFunction || (CATEGORIES[feedback.category]?.owner) || 'Store Ops'}
             </span>
           </div>
         </div>
@@ -157,8 +157,16 @@ export default function FeedbackDetailModal({
             NLP Matched Keywords & Trigger Terms:
           </span>
           <div className="flex flex-wrap gap-1.5">
-            {feedback.matchedTerms && feedback.matchedTerms.length > 0 ? (
-              feedback.matchedTerms.map((term, i) => (
+            {((feedback.matchedTerms && feedback.matchedTerms.length > 0)
+              ? feedback.matchedTerms
+              : (feedback.metadata?.nlp?.matchedTerms && feedback.metadata.nlp.matchedTerms.length > 0)
+              ? feedback.metadata.nlp.matchedTerms
+              : []
+            ).length > 0 ? (
+              ((feedback.matchedTerms && feedback.matchedTerms.length > 0)
+                ? feedback.matchedTerms
+                : feedback.metadata.nlp.matchedTerms
+              ).map((term, i) => (
                 <span
                   key={i}
                   className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-mono font-medium rounded-md bg-blue-50 text-[#3478F6] border border-blue-200"

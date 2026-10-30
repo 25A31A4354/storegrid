@@ -82,7 +82,7 @@ test.describe('Feedback API Endpoints (/api/feedback)', () => {
     assert.equal(body.success, true);
     assert.ok(body.data.id);
     assert.equal(body.data.storeCode, 'TEST-STR-01');
-    assert.equal(body.data.detectedCategory, 'STOCK_SHORTAGE'); // Triaged by baseline keyword
+    assert.equal(body.data.detectedCategory, 'IT14'); // Triaged into official R5 category
     assert.equal(body.data.provenance, 'TEST');
     assert.equal(body.data.rating, 2);
 
@@ -103,10 +103,10 @@ test.describe('Feedback API Endpoints (/api/feedback)', () => {
   });
 
   test('GET /api/feedback should filter by category', async () => {
-    const res = await fetch(`${getBaseUrl()}/api/feedback?category=STOCK_SHORTAGE`);
+    const res = await fetch(`${getBaseUrl()}/api/feedback?category=IT14`);
     assert.equal(res.status, 200);
     const body = await res.json();
-    assert.ok(body.data.every((f) => f.detectedCategory === 'STOCK_SHORTAGE'));
+    assert.ok(body.data.every((f) => f.detectedCategory === 'IT14'));
   });
 
   test('GET /api/feedback/:id should retrieve feedback by ID', async () => {

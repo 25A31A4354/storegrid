@@ -31,6 +31,7 @@ yarn-error.log*
 Thumbs.db
 .idea/
 .vscode/
+.gemini/
 *.suo
 *.ntvs*
 *.njsproj
@@ -41,3 +42,19 @@ Thumbs.db
 coverage/
 .nyc_output/
 tmp/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+ENV/
+.pytest_cache/
+
+# Backups & Scratch
+backups/
+*.bak
+*.swp
+

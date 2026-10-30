@@ -5,6 +5,8 @@ const nlpService = require('./nlp.service');
 const settingsService = require('./settings.service');
 const {
   CATEGORIES,
+  OFFICIAL_R5_CATEGORIES,
+  TAXONOMY_MAP,
   PRIORITIES,
   SOURCE_TYPES,
   PROCESSING_STATUSES,
@@ -16,15 +18,15 @@ const {
 
 /**
  * Justified priority evaluation rule
- * - Assigns CRITICAL only to recognized safety hazards and critical cold-chain refrigeration failures when autoFlagCritical is enabled.
- * - Non-hazardous equipment failures (e.g. barcode scanner, printer, scales) are assigned HIGH or MEDIUM, never CRITICAL.
- * - Billing delays and 1-star ratings are assigned HIGH.
- * - General operational issues are assigned MEDIUM or LOW.
+ * - Checks official taxonomy policy severity floors (e.g. IT10, IT04, IT06, IT08, IT16 have high severity floor).
+ * - Assigns CRITICAL only to recognized extreme safety hazards (sparks, fire, lift traps) when autoFlagCritical is enabled.
+ * - Respects policy floor: IT10 refrigeration failure gets at least HIGH priority.
+ * - General operational issues default to MEDIUM or LOW unless rating or keywords escalate.
  */
 function evaluatePriority({ text = '', category = null, rating = null, autoFlagCritical = true }) {
   const lower = (text || '').toLowerCase();
 
-  // 1. Recognized safety hazards (physical safety, electrical, lift trap, slip & fall hazards)
+  // 1. Extreme safety hazards (physical safety, electrical, lift trap, fire)
   const isSafetyHazard =
     lower.includes('spark') ||
     lower.includes('electric') ||
@@ -38,35 +40,45 @@ function evaluatePriority({ text = '', category = null, rating = null, autoFlagC
     lower.includes('trapped') ||
     lower.includes('slip') ||
     lower.includes('slippery') ||
-    lower.includes('water leak') ||
-    lower.includes('leaking roof') ||
     lower.includes('broken glass') ||
     lower.includes('injury') ||
+    lower.includes('ice cream melted') ||
+    lower.includes('water leak') ||
     lower.includes('hazard');
 
-  // 2. Critical cold chain / food safety refrigeration failure
-  const isCriticalRefrigeration =
-    (lower.includes('freezer') || lower.includes('chiller') || lower.includes('cold storage') || lower.includes('ice cream melted')) &&
-    (lower.includes('down') ||
-      lower.includes('broken') ||
-      lower.includes('off') ||
-      lower.includes('spoiled') ||
-      lower.includes('warm') ||
-      lower.includes('not working') ||
-      lower.includes('fail'));
-
-  if (autoFlagCritical && (isSafetyHazard || isCriticalRefrigeration)) {
+  if (autoFlagCritical && isSafetyHazard) {
     return PRIORITIES.CRITICAL;
   }
 
-  // Non-hazardous equipment failure (scanners, printers, POS machines, scales, trolleys)
+  // 2. Official taxonomy policy severity floor
+  const taxInfo = TAXONOMY_MAP[category];
+  if (taxInfo) {
+    if (taxInfo.policyFloor === 'high') {
+      return PRIORITIES.HIGH;
+    }
+    if (taxInfo.policyFloor === 'medium') {
+      return PRIORITIES.MEDIUM;
+    }
+  }
+
+  // Legacy or explicit cold chain / refrigeration failure
+  if (category === 'IT10' || (lower.includes('refrigerator') && lower.includes('cooling'))) {
+    return PRIORITIES.HIGH;
+  }
+
+  // Equipment failure legacy
   if (category === CATEGORIES.EQUIPMENT_FAILURE) {
     return PRIORITIES.HIGH;
   }
 
   // Critical operational bottlenecks or severe customer dissatisfaction
-  if (category === CATEGORIES.BILLING_DELAY || rating === 1) {
+  if (category === 'IT01' || category === CATEGORIES.BILLING_DELAY || rating === 1) {
     return PRIORITIES.HIGH;
+  }
+
+  // Non-issues
+  if (category === 'NI01' || category === 'NI02' || category === 'NI03') {
+    return PRIORITIES.LOW;
   }
 
   // Positive or satisfied customer feedback
@@ -77,6 +89,8 @@ function evaluatePriority({ text = '', category = null, rating = null, autoFlagC
   // Moderate concerns
   if (
     rating === 2 ||
+    category === 'IT03' ||
+    category === 'IT15' ||
     category === CATEGORIES.STAFF_BEHAVIOUR ||
     category === CATEGORIES.PRODUCT_QUALITY
   ) {
@@ -128,6 +142,15 @@ function formatFeedback(row) {
 
   const resolved = metadata?.resolved === true;
 
+  const nlpMeta = (metadata && typeof metadata === 'object' && metadata.nlp) || {};
+  const taxInfo = TAXONOMY_MAP[row.detected_category] || null;
+
+  const matchedTerms = Array.isArray(nlpMeta.matchedTerms) ? nlpMeta.matchedTerms : [];
+  const department = nlpMeta.ownerFunction || taxInfo?.owner || 'Store Ops';
+  const severity = nlpMeta.severity || taxInfo?.policyFloor || 'low';
+  const actionable = nlpMeta.actionable !== undefined ? nlpMeta.actionable : (taxInfo ? taxInfo.isActionable : 1);
+  const categoryName = nlpMeta.categoryName || taxInfo?.name || row.detected_category;
+
   return {
     id: row.id,
     feedbackId: row.id,
@@ -143,6 +166,11 @@ function formatFeedback(row) {
     language: row.language || 'en',
     category: row.detected_category,
     detectedCategory: row.detected_category,
+    categoryName,
+    matchedTerms,
+    department,
+    severity,
+    actionable,
     sentiment: row.sentiment || null,
     priority,
     confidence,
@@ -415,6 +443,10 @@ async function createFeedback({
       serviceStatus: nlpResult?.nlpStatus || 'OFFLINE',
       error: nlpResult?.error || null,
       classifiedAt: nlpResult?.success ? new Date().toISOString() : null,
+      severity: nlpResult?.severity || null,
+      actionable: nlpResult?.actionable !== undefined ? nlpResult.actionable : 1,
+      ownerFunction: nlpResult?.ownerFunction || null,
+      categoryName: nlpResult?.categoryName || null,
     },
   };
 
@@ -437,7 +469,7 @@ async function createFeedback({
     safeSource,
     feedbackTimestamp,
     safeRating,
-    language,
+    resolvedLanguage,
     detectedCat,
     sentiment || null,
     processingStatus,

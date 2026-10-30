@@ -1,0 +1,675 @@
+{
+  "evaluatedAt": "2026-10-29T18:01:27.239Z",
+  "serviceUrl": "http://127.0.0.1:8000",
+  "totalSamples": 42,
+  "accuracy": 0,
+  "accuracyPercent": "0.0%",
+  "codeMixedAccuracy": 0,
+  "codeMixedAccuracyPercent": "0.0%",
+  "macroPrecision": 0,
+  "macroRecall": 0,
+  "macroF1": 0,
+  "categoryMetrics": {
+    "STOCK_SHORTAGE": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "BILLING_DELAY": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "STAFF_BEHAVIOUR": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "PRODUCT_QUALITY": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "EQUIPMENT_FAILURE": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "OTHER": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    },
+    "NEEDS_REVIEW": {
+      "support": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "precision": 0,
+      "recall": 0,
+      "f1": 0
+    }
+  },
+  "confusionMatrix": {
+    "STOCK_SHORTAGE": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "BILLING_DELAY": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "STAFF_BEHAVIOUR": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "PRODUCT_QUALITY": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "EQUIPMENT_FAILURE": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "OTHER": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    },
+    "NEEDS_REVIEW": {
+      "STOCK_SHORTAGE": 0,
+      "BILLING_DELAY": 0,
+      "STAFF_BEHAVIOUR": 0,
+      "PRODUCT_QUALITY": 0,
+      "EQUIPMENT_FAILURE": 0,
+      "OTHER": 0,
+      "NEEDS_REVIEW": 0
+    }
+  },
+  "errors": [
+    {
+      "id": "HO-SS-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "out of stock"
+      ],
+      "isCorrect": false,
+      "text": "Visited the dairy section at 5pm and found empty shelves for toned milk."
+    },
+    {
+      "id": "HO-SS-02",
+      "type": "standard",
+      "language": "en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "out of stock"
+      ],
+      "isCorrect": false,
+      "text": "Sunflower oil 1L packets are completely out of stock in aisle 2."
+    },
+    {
+      "id": "HO-SS-03",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.95,
+      "matchedTerms": [
+        "out of stock",
+        "stock ledu"
+      ],
+      "isCorrect": false,
+      "text": "Eggs carton stock ledu bro, asked worker and he said no stock today."
+    },
+    {
+      "id": "HO-SS-04",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.92,
+      "matchedTerms": [
+        "stock ledu"
+      ],
+      "isCorrect": false,
+      "text": "Ration rice bags stock aipoyindi, when will you restock again?"
+    },
+    {
+      "id": "HO-SS-05",
+      "type": "standard",
+      "language": "en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.88,
+      "matchedTerms": [
+        "item unavailable"
+      ],
+      "isCorrect": false,
+      "text": "Every time I visit on weekends all popular bread items are unavailable."
+    },
+    {
+      "id": "HO-SS-06",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "STOCK_SHORTAGE",
+      "predicted": "IT14",
+      "confidence": 0.92,
+      "matchedTerms": [
+        "stock ledu"
+      ],
+      "isCorrect": false,
+      "text": "Sugar packets dhorakatledu counters daggara, shelves khali ga unnai."
+    },
+    {
+      "id": "HO-BD-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "BILLING_DELAY",
+      "predicted": "IT01",
+      "confidence": 0.78,
+      "matchedTerms": [
+        "billing queue"
+      ],
+      "isCorrect": false,
+      "text": "Had to wait for 25 minutes in the queue because only one cashier was active."
+    },
+    {
+      "id": "HO-BD-02",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "BILLING_DELAY",
+      "predicted": "IT01",
+      "confidence": 0.95,
+      "matchedTerms": [
+        "slow billing",
+        "billing chala slow",
+        "billing queue"
+      ],
+      "isCorrect": false,
+      "text": "Billing counter daggara chala delay undi, billing counter chala slow ga chestunnaru."
+    },
+    {
+      "id": "HO-BD-03",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "BILLING_DELAY",
+      "predicted": "IT01",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "line peddaga undi"
+      ],
+      "isCorrect": false,
+      "text": "Checkout process is terribly slow, line peddaga undi till exit gate."
+    },
+    {
+      "id": "HO-BD-04",
+      "type": "standard",
+      "language": "en",
+      "expected": "BILLING_DELAY",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "The cashier took 15 minutes just for 4 items, long queues everywhere."
+    },
+    {
+      "id": "HO-BD-05",
+      "type": "standard",
+      "language": "en",
+      "expected": "BILLING_DELAY",
+      "predicted": "IT01",
+      "confidence": 0.78,
+      "matchedTerms": [
+        "billing queue"
+      ],
+      "isCorrect": false,
+      "text": "Billing counter speed is awful during peak evening hours, huge crowd waiting."
+    },
+    {
+      "id": "HO-BD-06",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "BILLING_DELAY",
+      "predicted": "IT01",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "line peddaga undi"
+      ],
+      "isCorrect": false,
+      "text": "Cashier slow ga bill chesthunnaru, line lo nunchoni chala sepu aindi."
+    },
+    {
+      "id": "HO-SB-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "IT03",
+      "confidence": 0.95,
+      "matchedTerms": [
+        "rude staff",
+        "unhelpful staff"
+      ],
+      "isCorrect": false,
+      "text": "The floor manager was extremely rude and unhelpful when asked about aisle directions."
+    },
+    {
+      "id": "HO-SB-02",
+      "type": "standard",
+      "language": "en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "IT04",
+      "confidence": 0.95,
+      "matchedTerms": [
+        "staff misconduct"
+      ],
+      "isCorrect": false,
+      "text": "Cashier screamed at an elderly lady for asking price clarification."
+    },
+    {
+      "id": "HO-SB-03",
+      "type": "standard",
+      "language": "en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Staff members were shouting at each other and ignoring customer questions."
+    },
+    {
+      "id": "HO-SB-04",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "IT03",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "staff mariadaga matladaledu"
+      ],
+      "isCorrect": false,
+      "text": "Store staff mariadaga matladaledu, chala arrogant behavior chupincharu."
+    },
+    {
+      "id": "HO-SB-05",
+      "type": "standard",
+      "language": "en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Security guard was very aggressive while checking bags at the door."
+    },
+    {
+      "id": "HO-SB-06",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "STAFF_BEHAVIOUR",
+      "predicted": "IT03",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "rude staff"
+      ],
+      "isCorrect": false,
+      "text": "Cashier threw change coins on table, staff rude ga behave chesaru."
+    },
+    {
+      "id": "HO-PRODUCT-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "IT16",
+      "confidence": 0.92,
+      "matchedTerms": [
+        "expired product on shelf"
+      ],
+      "isCorrect": false,
+      "text": "Purchased a curd packet that smelled sour and had expired date."
+    },
+    {
+      "id": "HO-PRODUCT-02",
+      "type": "standard",
+      "language": "en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "The mangoes in fruit section were completely rotten with white worms inside."
+    },
+    {
+      "id": "HO-PRODUCT-03",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "IT16",
+      "confidence": 0.92,
+      "matchedTerms": [
+        "expired product on shelf"
+      ],
+      "isCorrect": false,
+      "text": "Bread pack lo mold vachindi, expiry date datipoyindi already."
+    },
+    {
+      "id": "HO-PRODUCT-04",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Milk packet opened at home was stale and curdled, quality bagoledhu."
+    },
+    {
+      "id": "HO-PRODUCT-05",
+      "type": "standard",
+      "language": "en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "IT25",
+      "confidence": 0.92,
+      "matchedTerms": [
+        "damaged delivery goods"
+      ],
+      "isCorrect": false,
+      "text": "Wheat flour packet was damaged and powder was leaking all over the trolley."
+    },
+    {
+      "id": "HO-PRODUCT-06",
+      "type": "standard",
+      "language": "en",
+      "expected": "PRODUCT_QUALITY",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Bought biscuits packet yesterday, completely soggy and spoiled food."
+    },
+    {
+      "id": "HO-EF-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "IT11",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "ac broken"
+      ],
+      "isCorrect": false,
+      "text": "Main central AC not working in produce section, sweating intensely."
+    },
+    {
+      "id": "HO-EF-02",
+      "type": "standard",
+      "language": "en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "IT11",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "equipment breakdown"
+      ],
+      "isCorrect": false,
+      "text": "The barcode scanner broke down and cashier had to punch codes by hand."
+    },
+    {
+      "id": "HO-EF-03",
+      "type": "standard",
+      "language": "en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "IT10",
+      "confidence": 0.95,
+      "matchedTerms": [
+        "refrigeration cooling failure",
+        "thawed/melted ice cream"
+      ],
+      "isCorrect": false,
+      "text": "Deep freezer broken and ice cream tubs were melting into liquid soup."
+    },
+    {
+      "id": "HO-EF-04",
+      "type": "standard",
+      "language": "en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Trolley wheel is broken, impossible to push down the aisle."
+    },
+    {
+      "id": "HO-EF-05",
+      "type": "standard",
+      "language": "en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "IT11",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "equipment breakdown"
+      ],
+      "isCorrect": false,
+      "text": "Card machine not working and UPI was failing too, payment terminal failure."
+    },
+    {
+      "id": "HO-EF-06",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "EQUIPMENT_FAILURE",
+      "predicted": "IT10",
+      "confidence": 0.4,
+      "matchedTerms": [
+        "refrigeration cooling failure",
+        "fridge cooling ledu",
+        "ac broken",
+        "equipment pani cheyatledu"
+      ],
+      "isCorrect": false,
+      "text": "Store lo AC pani cheyatledu, refrigerator cooling ledu food warm ga aindi."
+    },
+    {
+      "id": "HO-OTHER-01",
+      "type": "standard",
+      "language": "en",
+      "expected": "OTHER",
+      "predicted": "IT13",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "parking issue"
+      ],
+      "isCorrect": false,
+      "text": "Parking space is completely jammed on Saturday evenings, need valet or parking lot attendant."
+    },
+    {
+      "id": "HO-OTHER-02",
+      "type": "standard",
+      "language": "en",
+      "expected": "OTHER",
+      "predicted": "IT13",
+      "confidence": 0.88,
+      "matchedTerms": [
+        "store timings"
+      ],
+      "isCorrect": false,
+      "text": "Store timings should be extended till 11 PM on festivals for working professionals."
+    },
+    {
+      "id": "HO-OTHER-03",
+      "type": "standard",
+      "language": "en",
+      "expected": "OTHER",
+      "predicted": "IT06",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "hygiene lapse"
+      ],
+      "isCorrect": false,
+      "text": "Customer washroom was filthy and had no water in the tap."
+    },
+    {
+      "id": "HO-OTHER-04",
+      "type": "standard",
+      "language": "en",
+      "expected": "OTHER",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Store music was way too loud and obnoxious, lighting too dim."
+    },
+    {
+      "id": "HO-OTHER-05",
+      "type": "code_mixed",
+      "language": "te-en",
+      "expected": "OTHER",
+      "predicted": "IT13",
+      "confidence": 0.9,
+      "matchedTerms": [
+        "parking issue"
+      ],
+      "isCorrect": false,
+      "text": "Parking space ledu car park cheyadaniki, chala kashtam aindi."
+    },
+    {
+      "id": "HO-OTHER-06",
+      "type": "standard",
+      "language": "en",
+      "expected": "OTHER",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Prices are heavily overpriced compared to local supermarket down the road."
+    },
+    {
+      "id": "HO-NR-01",
+      "type": "conflict",
+      "language": "en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "IT16",
+      "confidence": 0.4,
+      "matchedTerms": [
+        "expired product on shelf",
+        "rude staff"
+      ],
+      "isCorrect": false,
+      "text": "Cashier was extremely rude and the milk packet was completely expired and rotten."
+    },
+    {
+      "id": "HO-NR-02",
+      "type": "conflict",
+      "language": "en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "IT01",
+      "confidence": 0.4,
+      "matchedTerms": [
+        "slow billing",
+        "billing queue",
+        "thawed/melted ice cream"
+      ],
+      "isCorrect": false,
+      "text": "Billing counter is slow and also AC is broken and ice cream is melting."
+    },
+    {
+      "id": "HO-NR-03",
+      "type": "unrelated",
+      "language": "en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Nice weather outside today, just came to walk around."
+    },
+    {
+      "id": "HO-NR-04",
+      "type": "ambiguous",
+      "language": "en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "okay okay store not bad"
+    },
+    {
+      "id": "HO-NR-05",
+      "type": "gibberish",
+      "language": "en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "asdfghjkl qwerty 12345"
+    },
+    {
+      "id": "HO-NR-06",
+      "type": "vague",
+      "language": "te-en",
+      "expected": "NEEDS_REVIEW",
+      "predicted": "NI02",
+      "confidence": 0,
+      "matchedTerms": [],
+      "isCorrect": false,
+      "text": "Bagundi kani em cheppali telitledu"
+    }
+  ]
+}

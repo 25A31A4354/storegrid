@@ -119,6 +119,10 @@ async function classifyFeedback({ feedbackId, storeId, text, sourceType = 'revie
       needsReview: Boolean(data.needsReview),
       matchedTerms: Array.isArray(data.matchedTerms) ? data.matchedTerms : [],
       cleanedText: data.cleanedText || (text || '').trim().toLowerCase(),
+      severity: data.severity || 'low',
+      actionable: data.actionable !== undefined ? data.actionable : 1,
+      ownerFunction: data.ownerFunction || 'Store Ops',
+      categoryName: data.categoryName || '',
       nlpStatus: 'PROCESSED',
       error: null,
     };

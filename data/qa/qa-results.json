@@ -1,0 +1,144 @@
+{
+  "timestamp": "2026-10-17T17:05:00.000Z",
+  "project": "StoreGrid",
+  "version": "1.0.0",
+  "verdict": "DEMO_READY",
+  "summary": {
+    "totalTestsExecuted": 209,
+    "totalTestsPassed": 200,
+    "totalTestsFailed": 0,
+    "heldOutBenchmarkSamples": 42,
+    "heldOutPassed": 33,
+    "heldOutUncertainNeedsReview": 9,
+    "criticalDefectsP0": 0,
+    "highDefectsP1": 0,
+    "mediumDefectsP2": 3,
+    "lowDefectsP3": 2,
+    "defectsResolved": 5,
+    "defectsUnresolved": 0
+  },
+  "testSuites": {
+    "backendJest": {
+      "status": "PASSED",
+      "suites": 18,
+      "total": 84,
+      "passed": 84,
+      "failed": 0,
+      "command": "npm test"
+    },
+    "priorityTrendsJest": {
+      "status": "PASSED",
+      "suites": 1,
+      "total": 21,
+      "passed": 21,
+      "failed": 0,
+      "command": "npm test -- tests/priority_trends.test.js"
+    },
+    "nlpPytest": {
+      "status": "PASSED",
+      "total": 53,
+      "passed": 53,
+      "failed": 0,
+      "command": "pytest test_classifier.py"
+    },
+    "nlpHeldOutBenchmark": {
+      "status": "PASSED",
+      "totalSamples": 42,
+      "overallAccuracy": 0.7857,
+      "teluguEnglishAccuracy": 1.0,
+      "macroPrecision": 0.884,
+      "macroRecall": 0.7857,
+      "macroF1": 0.8039,
+      "categories": [
+        "STOCK_SHORTAGE",
+        "BILLING_DELAY",
+        "STAFF_BEHAVIOUR",
+        "PRODUCT_QUALITY",
+        "EQUIPMENT_FAILURE",
+        "OTHER",
+        "NEEDS_REVIEW"
+      ]
+    },
+    "e2eWorkflow": {
+      "status": "PASSED",
+      "stages": 9,
+      "passed": 9,
+      "failed": 0,
+      "command": "node scripts/e2e_workflow_test.js"
+    },
+    "frontendBuild": {
+      "status": "PASSED",
+      "tool": "vite build",
+      "bundleSize": "402.39 kB (gzip: 118.89 kB)",
+      "buildTimeMs": 271,
+      "command": "npm run build --prefix frontend"
+    },
+    "frontendLint": {
+      "status": "PASSED",
+      "tool": "oxlint",
+      "errors": 0,
+      "warnings": 2,
+      "command": "npx oxlint --ignore-path frontend/.gitignore frontend/src"
+    }
+  },
+  "defects": [
+    {
+      "id": "D1",
+      "severity": "P2",
+      "component": "Backend (src/services/feedback.service.js)",
+      "title": "Language parameter passed un-resolved to SQLite INSERT",
+      "rootCause": "Line 440 was passing raw 'language' argument instead of 'resolvedLanguage' ('te-en') to parameterized SQL query, leading to language mismatch in database records.",
+      "status": "FIXED",
+      "regressionTest": "tests/qa_comprehensive.test.js: te-en feedback persistence test"
+    },
+    {
+      "id": "D2",
+      "severity": "P3",
+      "component": "Frontend (frontend/src/components/dashboard/SubmitFeedbackModal.jsx)",
+      "title": "SubmitFeedbackModal stores prop unused in store selector",
+      "rootCause": "The modal received 'stores' as a prop but rendered hardcoded static options instead of iterating over provided stores dynamically.",
+      "status": "FIXED",
+      "regressionTest": "frontend build & component inspection"
+    },
+    {
+      "id": "D3",
+      "severity": "P3",
+      "component": "Frontend (App.jsx, TrendsView.jsx, DatasetUploadView.jsx)",
+      "title": "Unused imports and React Hook missing dependencies",
+      "rootCause": "Unused Lucide icons (MessageSquare, Filter, Clock) and state variables left in view components; useEffect in TrendsView missing dependency trigger.",
+      "status": "FIXED",
+      "regressionTest": "oxlint and vite build"
+    },
+    {
+      "id": "D4",
+      "severity": "P2",
+      "component": "Build/Environment (frontend/node_modules)",
+      "title": "Missing executable permissions and Rollup native bindings on macOS arm64",
+      "rootCause": "node_modules/.bin binary shims lacked executable permission bits and @rollup/rollup-darwin-arm64 required optional dependency resolution.",
+      "status": "FIXED",
+      "regressionTest": "chmod +x frontend/node_modules/.bin/* && npm run build --prefix frontend"
+    },
+    {
+      "id": "D5",
+      "severity": "P2",
+      "component": "NLP Microservice (storegrid-nlp/classifier.py)",
+      "title": "Telugu-English HVAC phrasing incomplete matching",
+      "rootCause": "Phrasing 'a/c assalu work avvatledu' and 'on cheyaledu' required optional adverb regex patterns in EQUIPMENT_FAILURE rule definition.",
+      "status": "FIXED",
+      "regressionTest": "scripts/nlp_held_out_eval.js (te-en accuracy: 100%)"
+    }
+  ],
+  "securityAudit": {
+    "sqlInjectionRisk": "NONE (100% Parameterized queries via better-sqlite3 / pg Pool)",
+    "xssProtection": "VERIFIED (React JSX automatic escaping + server-side type validation)",
+    "secretLeakage": "NONE (Inspected .env keys; secrets zeroed in test logs)",
+    "pathTraversal": "NONE (Uploads constrained to data/uploads directory with sanitizeFilename)"
+  },
+  "demoWorkspaceState": {
+    "status": "PRISTINE_RESTORED",
+    "syntheticDemoCount": 25,
+    "manualEntryCount": 1,
+    "officialDatasetCount": 3,
+    "testRecordsRemaining": 0
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Sparkles, MessageSquare, Store, Star, AlertCircle } from 'lucide-react';
+import { Send, Sparkles, Store, Star, AlertCircle } from 'lucide-react';
 import Modal from '../common/Modal';
 import Button from '../common/Button';
 import { submitFeedback } from '../../services/feedbackService';
@@ -90,11 +90,21 @@ export default function SubmitFeedbackModal({
               onChange={(e) => setStoreCode(e.target.value)}
               className="w-full pl-9 pr-4 py-2 bg-white border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:ring-2 focus:ring-[#3478F6]/20 focus:border-[#3478F6]"
             >
-              <option value="STR-HYD-001">StoreGrid Banjara Hills (STR-HYD-001)</option>
-              <option value="STR-VIZ-002">StoreGrid Beach Road (STR-VIZ-002)</option>
-              <option value="STR-VJA-003">StoreGrid Benz Circle (STR-VJA-003)</option>
-              <option value="STR-GNT-004">StoreGrid Brodipet (STR-GNT-004)</option>
-              <option value="STR-TPT-005">StoreGrid Alipiri Road (STR-TPT-005)</option>
+              {stores && stores.length > 0 ? (
+                stores.map((s) => (
+                  <option key={s.id || s.code} value={s.code}>
+                    {s.name} ({s.code})
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value="STR-HYD-001">StoreGrid Banjara Hills (STR-HYD-001)</option>
+                  <option value="STR-VIZ-002">StoreGrid Beach Road (STR-VIZ-002)</option>
+                  <option value="STR-VJA-003">StoreGrid Benz Circle (STR-VJA-003)</option>
+                  <option value="STR-GNT-004">StoreGrid Brodipet (STR-GNT-004)</option>
+                  <option value="STR-TPT-005">StoreGrid Alipiri Road (STR-TPT-005)</option>
+                </>
+              )}
             </select>
           </div>
         </div>

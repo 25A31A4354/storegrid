@@ -464,7 +464,9 @@ async function getDashboardOverview({ storeId = null, dateRange = 'last7', batch
   // Timeframe filter
   let daysBack = 7;
   if (dateRange === 'today') daysBack = 1;
-  else if (dateRange === 'last7') daysBack = 7;
+  else if (dateRange === 'last7') {
+    daysBack = (batchId && batchId !== 'ALL' && batchId !== 'all' && batchId !== 'DEMO_ONLY' && batchId !== 'IMPORTED_ONLY') ? 3650 : 7;
+  }
   else if (dateRange === 'last30') daysBack = 30;
   else if (dateRange === 'all') daysBack = 3650;
 
@@ -524,6 +526,13 @@ async function getDashboardOverview({ storeId = null, dateRange = 'last7', batch
   }
 
   const OPERATIONAL_CATS = [
+    'IT01', 'IT02', 'IT03', 'IT04', 'IT05',
+    'IT06', 'IT07', 'IT08', 'IT09', 'IT10',
+    'IT11', 'IT12', 'IT13', 'IT14', 'IT15',
+    'IT16', 'IT17', 'IT18', 'IT19', 'IT20',
+    'IT21', 'IT22', 'IT23', 'IT24', 'IT25',
+    'IT26', 'IT27', 'IT28', 'IT29', 'IT30',
+    'NI01', 'NI02', 'NI03',
     'STOCK_SHORTAGE',
     'BILLING_DELAY',
     'STAFF_BEHAVIOUR',

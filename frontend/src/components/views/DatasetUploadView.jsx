@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   UploadCloud,
   FileSpreadsheet,
@@ -14,7 +14,6 @@ import {
   Sparkles,
   Eye,
   Check,
-  Clock,
   ChevronRight,
 } from 'lucide-react';
 import {
@@ -54,7 +53,7 @@ export default function DatasetUploadView({
   const fileInputRef = useRef(null);
 
   // Load past batches
-  const loadBatches = async () => {
+  const loadBatches = useCallback(async () => {
     setIsLoadingBatches(true);
     try {
       const data = await listDatasetBatches();
@@ -64,11 +63,11 @@ export default function DatasetUploadView({
     } finally {
       setIsLoadingBatches(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadBatches();
-  }, []);
+  }, [loadBatches]);
 
   const handleFileChange = async (selectedFile) => {
     if (!selectedFile) return;

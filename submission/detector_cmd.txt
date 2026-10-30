@@ -1,0 +1,1 @@
+python storegrid-nlp/detector.py --feedback {feedback} --as-of {asof} --out {out}
